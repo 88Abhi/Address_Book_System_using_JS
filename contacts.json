@@ -4,9 +4,19 @@
     "lastName": "Jat",
     "address": "141 Awadhpuri",
     "city": "India",
-    "state": "IN",
-    "zip": "2712003",
-    "phone": "1234567890",
+    "state": "Bhopal",
+    "zip": "462022",
+    "phone": "6263197473",
+    "email": "abhi@example.com"
+  },
+  {
+    "firstName": "Abhishek",
+    "lastName": "Jat",
+    "address": "141 Awadhpuri",
+    "city": "India",
+    "state": "Bhopal",
+    "zip": "462022",
+    "phone": "9876543210",
     "email": "abhi@example.com"
   }
 ]
