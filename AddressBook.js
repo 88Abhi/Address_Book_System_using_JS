@@ -179,18 +179,31 @@ class AddressBook {
             console.log(`Contact '${firstName} ${lastName}' deleted successfully!`);
         }
     }
+
+    // countContacts method to count the contacts in the address book
+    countContacts(bookName) {
+        if (!this.addressBooks[bookName]) {
+            console.log(`Address Book '${bookName}' does not exist.`);
+            return 0;
+        }
+
+        // Use reduce function to count the contacts
+        const contactCount = this.addressBooks[bookName].reduce((count) => count + 1, 0);
+        console.log(`Total contacts in '${bookName}': ${contactCount}`);
+        return contactCount;
+    }
 }
 
 // Example Usage to create an address book and add a contact
 const addressBookApp = new AddressBook();
 addressBookApp.createAddressBook("Abhishek-Personal");
-addressBookApp.addContact("Abhishek-Personal","Abhishek","Jat","121 Sec-A Bhopal","Bhopal","Madhyapradesh","271203","9770543210","Abhishek.Jat@example.com");
+addressBookApp.addContact("Abhishek-Personal", "Abhishek", "Jat", "121 Sec-A Bhopal", "Bhopal", "Madhyapradesh", "271203", "9770543210", "Abhishek.Jat@example.com");
 addressBookApp.viewContacts("Abhishek-Personal");
 
 addressBookApp.createAddressBook("Amit-Work");
-addressBookApp.addContact("Amit-Work","Amit","Pawar","121 Sec-B Bhopal","Bhopal-DDX","Bihar","78001","9123456789","Amit.Pawar@example.com");
+addressBookApp.addContact("Amit-Work", "Amit", "Pawar", "121 Sec-B Bhopal", "Bhopal-DDX", "Bihar", "78001", "9123456789", "Amit.Pawar@example.com");
 addressBookApp.viewContacts("Amit-Work");
 
-addressBookApp.editContact("Abhishek-Personal", "Abhishek", "Jat", {phone: "9234567890",});
-
-addressBookApp.deleteContact("Amit-Work", "Amit", "Pawar");
+addressBookApp.editContact("Abhishek-Personal", "Abhishek", "Jat", { phone: "9234567890", });
+addressBookApp.deleteContact("Abhishek-Personal", "Abhishek", "Jat"); 
+addressBookApp.countContacts("Amit-Work");
