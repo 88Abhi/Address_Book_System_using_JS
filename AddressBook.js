@@ -210,20 +210,35 @@ class AddressBook {
     searchByCityOrState(cityOrState) {
         let results = [];
 
+        let cityCount = {};
+        let stateCount = {};
+
         Object.keys(this.addressBooks).forEach((bookName) => {
-            const contacts = this.addressBooks[bookName].filter(
-                (contact) =>
+            this.addressBooks[bookName].forEach((contact) => {
+                if (
                     contact.city.toLowerCase() === cityOrState.toLowerCase() ||
                     contact.state.toLowerCase() === cityOrState.toLowerCase()
-            );
-            results = results.concat(contacts);
+                ) {
+                    results.push(contact);
+
+                    // Count contacts in each city
+                    cityCount[contact.city] = (cityCount[contact.city] || 0) + 1;
+
+                    // Count contacts in each state
+                    stateCount[contact.state] = (stateCount[contact.state] || 0) + 1;
+                }
+            });
         });
 
         if (results.length === 0) {
-            console.log(`No contacts found in '${cityOrState}'.`);
-        } else {
-            console.log(`Contacts in '${cityOrState}':`, results);
+            return;
         }
+
+        // Display results
+        console.log(`Contacts in '${cityOrState}':`, results);
+        console.log("Contact Count by City:", cityCount);
+        console.log("Contact Count by State:", stateCount);
+        console.log(`Total contacts found: ${results.length}`);
     }
 }
 
