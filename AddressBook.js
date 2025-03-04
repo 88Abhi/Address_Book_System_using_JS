@@ -67,6 +67,17 @@ class AddressBook {
     addContact(bookName, firstName, lastName, address, city, state, zip, phone, email) {
         if (!this.addressBooks[bookName]) {
             console.log(`Address Book '${bookName}' does not exist.`);
+            this.addressBooks[bookName] = [];
+        }
+
+        // Check for duplicate using `some`
+        const isDuplicate = this.addressBooks[bookName].some(
+            (c) => c.firstName === firstName && c.lastName === lastName
+        );
+
+
+        if (isDuplicate) {
+            console.log(`Duplicate entry! Contact '${contact.name}' already exists in '${bookName}'.`);
             return;
         }
         try {
@@ -205,5 +216,5 @@ addressBookApp.addContact("Amit-Work", "Amit", "Pawar", "121 Sec-B Bhopal", "Bho
 addressBookApp.viewContacts("Amit-Work");
 
 addressBookApp.editContact("Abhishek-Personal", "Abhishek", "Jat", { phone: "9234567890", });
-addressBookApp.deleteContact("Abhishek-Personal", "Abhishek", "Jat"); 
+addressBookApp.deleteContact("Abhishek-Personal", "Abhishek", "Jat");
 addressBookApp.countContacts("Amit-Work");
