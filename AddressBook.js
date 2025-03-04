@@ -203,6 +203,26 @@ class AddressBook {
         console.log(`Total contacts in '${bookName}': ${contactCount}`);
         return contactCount;
     }
+
+    // searchByCityOrState method to search the contacts by city or state
+    searchByCityOrState(cityOrState) {
+        let results = [];
+
+        Object.keys(this.addressBooks).forEach((bookName) => {
+            const contacts = this.addressBooks[bookName].filter(
+                (contact) =>
+                    contact.city.toLowerCase() === cityOrState.toLowerCase() ||
+                    contact.state.toLowerCase() === cityOrState.toLowerCase()
+            );
+            results = results.concat(contacts);
+        });
+
+        if (results.length === 0) {
+            console.log(`No contacts found in '${cityOrState}'.`);
+        } else {
+            console.log(`Contacts in '${cityOrState}':`, results);
+        }
+    }
 }
 
 // Example Usage to create an address book and add a contact
@@ -212,9 +232,11 @@ addressBookApp.addContact("Abhishek-Personal", "Abhishek", "Jat", "121 Sec-A Bho
 addressBookApp.viewContacts("Abhishek-Personal");
 
 addressBookApp.createAddressBook("Amit-Work");
-addressBookApp.addContact("Amit-Work", "Amit", "Pawar", "121 Sec-B Bhopal", "Bhopal-DDX", "Bihar", "78001", "9123456789", "Amit.Pawar@example.com");
+addressBookApp.addContact("Amit-Work", "Amit", "Pawar", "121 Sec-B Bhopal", "Bhopal-DDX", "Bhopal", "78001", "9123456789", "Amit.Pawar@example.com");
 addressBookApp.viewContacts("Amit-Work");
 
 addressBookApp.editContact("Abhishek-Personal", "Abhishek", "Jat", { phone: "9234567890", });
 addressBookApp.deleteContact("Abhishek-Personal", "Abhishek", "Jat");
 addressBookApp.countContacts("Amit-Work");
+
+addressBookApp.searchByCityOrState("Bhopal");
