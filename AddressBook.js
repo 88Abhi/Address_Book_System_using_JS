@@ -15,7 +15,7 @@ class AddressBook {
         } catch (error) {
             console.error("Error loading addressBooks:", error);
         }
-        return [];
+        return {};
     }  
 
     // Save address books to a file
@@ -106,15 +106,51 @@ class AddressBook {
         this.addressBooks[name] = [];
         this.saveAddressBooks();
         console.log(`New Address Book '${name}' created successfully.`);
+    } 
+
+    // editContact method to edit the contact details
+    editContact(bookName, firstName, lastName, newDetails) {
+        if (!this.addressBooks[bookName]) {
+            console.log(`Address Book '${bookName}' does not exist.`);
+            return;
+        }
+    
+        let contacts = this.addressBooks[bookName];
+        let contactIndex = contacts.findIndex(c => c.firstName === firstName && c.lastName === lastName);
+    
+        if (contactIndex === -1) {
+            console.log(`Contact '${firstName} ${lastName}' not found in '${bookName}'.`);
+            return;
+        }
+    
+        // Debugging - Log before update
+        console.log("Before update:", contacts[contactIndex]);
+    
+        // Update the contact fields
+        Object.keys(newDetails).forEach(key => {
+            if (contacts[contactIndex][key] !== undefined && newDetails[key] !== undefined) {
+                contacts[contactIndex][key] = newDetails[key];
+            }
+        });
+    
+        // Debugging - Log after update
+        console.log("After update:", contacts[contactIndex]);
+    
+        // Save changes to file
+        this.saveAddressBooks();
+        console.log(`Contact '${firstName} ${lastName}' updated successfully!`);
     }
+    
 }
 
 // Example Usage to create an address book and add a contact
 const addressBookApp = new AddressBook(); 
 addressBookApp.createAddressBook("Abhishek-Personal"); 
-addressBookApp.addContact("Abhishek-Personal", "Abhishek", "Jat", "121 Sec-A Bhopal", "Bhopal", "Madhyapradesh", "271203", "9234567890", "abhi@example.com");
+addressBookApp.addContact("Abhishek-Personal", "Abhishek", "Jat", "141 Sec-A Bhopal", "Bhopal", "Madhyapradesh", "271203", "9874563210", "Abhishek.Jat@example.com");
 addressBookApp.viewContacts("Abhishek-Personal"); 
 
 addressBookApp.createAddressBook("Amit-Work");
-addressBookApp.addContact("Amit-Work", "Amit", "Pawar", "141 Sec-B Bhopal", "Bhopal-DDX", "Bihar", "78001", "9123456789", "abhishek.jat@example.com");
-addressBookApp.viewContacts("Amit-Work");
+addressBookApp.addContact("Amit-Work", "Amit", "Pawar", "121 Sec-B Bhopal", "Bhopal-DDX", "Bihar", "78001", "9123456789", "amit.pawar@example.com");
+addressBookApp.viewContacts("Amit-Work"); 
+
+addressBookApp.editContact("Abhishek-Personal", "Abhishek", "Jat", { phone: "98745563210" });
