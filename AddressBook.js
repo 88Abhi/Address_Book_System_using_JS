@@ -80,6 +80,8 @@ class AddressBook {
             console.log(`Duplicate entry! Contact '${contact.name}' already exists in '${bookName}'.`);
             return;
         }
+
+        // Try to add the contact with validation
         try {
             // Validation of contact details
             this.validateContact(firstName, lastName, address, city, state, zip, phone, email);
@@ -228,7 +230,7 @@ class AddressBook {
 // Example Usage to create an address book and add a contact
 const addressBookApp = new AddressBook();
 addressBookApp.createAddressBook("Abhishek-Personal");
-addressBookApp.addContact("Abhishek-Personal", "Abhishek", "Jat", "121 Sec-A Bhopal", "Bhopal", "Madhyapradesh", "271203", "9770543210", "Abhishek.Jat@example.com");
+addressBookApp.addContact("Abhishek-Personal", "Abhishek", "Jat", "121 Sec-A Bhopal", "Bhopal", "Madhyapradesh", "271203", "9798654352", "Abhishek.Jat@example.com");
 addressBookApp.viewContacts("Abhishek-Personal");
 
 addressBookApp.createAddressBook("Amit-Work");
