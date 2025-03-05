@@ -242,15 +242,29 @@ class AddressBook {
     }
 
     // sortByName method to sort the contacts by name
-  sortByName() {
-    Object.keys(this.addressBooks).forEach(bookName => {
-        this.addressBooks[bookName].sort((a, b) => 
-            a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-        );
-    });
+    sortByName() {
+        Object.keys(this.addressBooks).forEach(bookName => {
+            this.addressBooks[bookName].sort((a, b) =>
+                a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+            );
+        });
 
-    console.log("Address book sorted by name:", this.addressBooks);
-}
+        console.log("Address book sorted by name:", this.addressBooks);
+    }
+    sortBy(field) {
+        if (!["city", "state", "zip"].includes(field)) {
+            console.error("Invalid sort field. Choose 'city', 'state', or 'zip'.");
+            return;
+        }
+
+        Object.keys(this.addressBooks).forEach(bookName => {
+            this.addressBooks[bookName].sort((a, b) =>
+                a[field].toString().localeCompare(b[field].toString())
+            );
+        });
+
+        console.log(`Address book sorted by ${field}:`, this.addressBooks);
+    }
 }
 
 // Example Usage to create an address book and add a contact
@@ -270,3 +284,6 @@ addressBookApp.countContacts("Amit-Work");
 addressBookApp.searchByCityOrState("Bhopal");
 
 addressBookApp.sortByName();
+
+//SortBy method to sort the Address Book Entries by City , State or Zip.
+addressBookApp.sortBy("city"); 
