@@ -240,6 +240,17 @@ class AddressBook {
         console.log("Contact Count by State:", stateCount);
         console.log(`Total contacts found: ${results.length}`);
     }
+
+    // sortByName method to sort the contacts by name
+  sortByName() {
+    Object.keys(this.addressBooks).forEach(bookName => {
+        this.addressBooks[bookName].sort((a, b) => 
+            a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        );
+    });
+
+    console.log("Address book sorted by name:", this.addressBooks);
+}
 }
 
 // Example Usage to create an address book and add a contact
@@ -257,3 +268,5 @@ addressBookApp.deleteContact("Abhishek-Personal", "Abhishek", "Jat");
 addressBookApp.countContacts("Amit-Work");
 
 addressBookApp.searchByCityOrState("Bhopal");
+
+addressBookApp.sortByName();
